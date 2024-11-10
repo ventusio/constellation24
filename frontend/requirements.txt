@@ -1,0 +1,5 @@
+streamlit
+folium
+httpx
+streamlit_folium
+watchdog

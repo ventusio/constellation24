@@ -1,4 +1,4 @@
-fastapi[standard]
+fastapi[all]
 pydantic
 requests
 httpx
