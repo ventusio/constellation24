@@ -1,14 +1,10 @@
-import os
-import sys
-
 import folium
 import numpy as np
 import streamlit as st
 from folium.plugins import HeatMap
 from streamlit_folium import st_folium
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from shared.models.geo import Point  # noqa
+from shared.models import Point
 
 
 def main():
