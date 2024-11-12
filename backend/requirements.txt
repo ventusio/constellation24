@@ -1,5 +1,10 @@
 fastapi[all]
 pydantic
-requests
 httpx
+sqlmodel
+sqlalchemy
+geoalchemy2
+psycopg
+psycopg2-binary
 pytest
+testcontainers[all]

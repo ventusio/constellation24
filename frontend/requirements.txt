@@ -3,3 +3,5 @@ folium
 httpx
 streamlit_folium
 watchdog
+langchain
+langchain-together
