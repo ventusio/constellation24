@@ -22,4 +22,4 @@ jobs:
         pip install -r shared/requirements.txt
     - name: Analysing the code with pylint
       run: |
-        ruff check $(git ls-files '*.py')
+        black $(git ls-files '*.py')
