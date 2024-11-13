@@ -1,3 +1,5 @@
 pydantic
 setuptools
+geoalchemy2
+shapely
 black
