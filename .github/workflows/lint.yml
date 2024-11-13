@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.12"]
+        python-version ["3.11", "3.12", "3.13"]
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -25,7 +25,7 @@ jobs:
       id: black
       continue-on-error: true
       run: |
-        black --check $(git ls-files '*.py') --line-length 8
+        black --check $(git ls-files '*.py') --line-length=120
     - name: Check imports with isort
       id: isort
       continue-on-error: true
@@ -39,9 +39,17 @@ jobs:
     - name: Check for failures
       if: always()
       run: |
-        if [[ "${{ steps.black.outcome }}" == "failure" ]] || \
-           [[ "${{ steps.isort.outcome }}" == "failure" ]] || \
-           [[ "${{ steps.flake8.outcome }}" == "failure" ]]; then
-          echo "One or more linting checks failed"
+        failed_checks=()
+        if [[ "${{ steps.black.outcome }}" == "failure" ]]; then
+          failed_checks+=("black")
+        fi
+        if [[ "${{ steps.isort.outcome }}" == "failure" ]]; then
+          failed_checks+=("isort")
+        fi
+        if [[ "${{ steps.flake8.outcome }}" == "failure" ]]; then
+          failed_checks+=("flake8")
+        fi
+        if [ ${#failed_checks[@]} -gt 0 ]; then
+          echo "The following checks failed: ${failed_checks[*]}"
           exit 1
         fi
