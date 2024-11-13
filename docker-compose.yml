@@ -1,7 +1,7 @@
 services:
   db:
     container_name: postgis
-    image: postgis/postgis:latest
+    image: imresamu/postgis-arm64:16-3.4.3-bullseye
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
