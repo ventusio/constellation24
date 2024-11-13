@@ -20,12 +20,13 @@ def postgis():
         yield postgis
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="module", autouse=True)
 def test_app(postgis):
     def get_test_settings():
         return Settings(
             db_host=postgis.get_container_host_ip(),
             db_port=postgis.get_exposed_port(5432),
+            admin_key="test_key",
         )
 
     app.dependency_overrides[get_settings] = get_test_settings
