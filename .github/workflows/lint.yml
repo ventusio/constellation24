@@ -1,4 +1,4 @@
-name: Ruff linter
+name: Lint
 
 on: [push]
 
