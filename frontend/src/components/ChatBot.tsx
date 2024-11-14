@@ -9,7 +9,7 @@ interface Message {
 
 const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { content: "Hello! I can help you explore the heatmap. Try asking about specific areas or data patterns.", role: 'assistant' }
+    { content: "Hello! I can help you?\nSawubona, ngingakusiza ngani?\nGoeie dag, hoe kan ek help?\nMolo, ndingakunceda ngantoni?", role: 'assistant' }
   ]);
 
   const { mutate } = useMutation('chat', async () =>
