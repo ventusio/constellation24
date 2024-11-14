@@ -5,14 +5,9 @@ from typing import Optional
 from geoalchemy2 import Geometry
 from sqlalchemy import URL
 from sqlmodel import Column, Field, Session, SQLModel, create_engine
+from src.models import Point, Report
 
 from .config import get_settings
-
-# isort: off
-# these need to be imported in a certain order
-from .utils import add_root_to_path  # noqa
-
-from shared.models import Point, Report
 
 settings = get_settings()
 

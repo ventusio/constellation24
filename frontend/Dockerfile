@@ -1,20 +1,23 @@
-FROM python:3.12-slim-bullseye
+# Use the official Node.js slim image as the base image
+FROM node:slim
 
+# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY frontend/requirements.txt ./frontend/requirements.txt
-COPY shared/requirements.txt ./shared/requirements.txt
+# Copy package.json and pnpm-lock.yaml to the working directory
+COPY frontend/package.json frontend/pnpm-lock.yaml ./
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r frontend/requirements.txt
-RUN pip install --no-cache-dir -r shared/requirements.txt
+# Install pnpm
+RUN npm install -g pnpm
 
-# Copy the shared directory
-COPY ./shared ./shared
-# Copy the frontend directory
-COPY ./frontend ./frontend
+# Install dependencies
+RUN pnpm install
 
-EXPOSE 8501
+# Copy the rest of the application code to the working directory
+COPY ./frontend .
 
-CMD ["streamlit", "run", "frontend/src/main.py"]
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Start the application
+CMD ["pnpm", "preview"]

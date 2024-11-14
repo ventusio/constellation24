@@ -4,18 +4,16 @@ from typing import Annotated, List
 
 import numpy as np
 from fastapi import Depends, FastAPI, HTTPException, Security
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import APIKeyHeader
 from sqlmodel import Session, delete, select
+from src.chat import init_llm, system_prompt
 from src.config import Settings, get_settings
+from src.models import ChatMessage, Point, Report
 from src.postgis import DbReports, create_db_and_tables, get_session
 
-# isort: off
-# these need to be imported in a certain order
-from .utils import add_root_to_path  # noqa isort:skip
-from shared.models import Point, Report
-
-
 settings = get_settings()
+
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -41,6 +39,14 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost", "http://localhost8080"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -92,3 +98,23 @@ def create_mock_reports(
     session.add_all(db_reports)
     session.commit()
     return [db_report.as_report() for db_report in db_reports]
+
+
+@app.post("/chat")
+def chat_interaction(
+    messages: List[ChatMessage],
+    settings: Annotated[Settings, Depends(get_settings)],
+) -> ChatMessage:
+    """
+    Usage flow example:
+    1. Pass an initial user message to the endpoint, with `role` set to "user" and `content` set to the user's message.
+    2. Get a response back from the endpoint
+        with `role` set to "assistant" and `content` set to the assistant's response.
+    3. Create a "chat history", which is a list of messages, where each message has a `role` and `content`.
+    4. Add a new user message to the chat history.
+    4. Pass the chat history to the endpoint to get the next response.
+    """
+    full_prompt = [system_prompt] + [message.model_dump() for message in messages][-10:]
+    llm = init_llm(settings)
+    response = llm.invoke(full_prompt)
+    return ChatMessage(role="assistant", content=response.content)

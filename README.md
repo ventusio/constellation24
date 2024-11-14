@@ -1,7 +1,9 @@
 # constellation24
+
 Repo for GitHub Constellation 2024 Hackathon
 
 # What we're building
+
 Feather is a community-driven platform that empowers South Africans to enhance their safety through collective awareness. The platform allows citizens to:
 
 - Report incidents anonymously to build a comprehensive crime map
@@ -12,6 +14,7 @@ Feather is a community-driven platform that empowers South Africans to enhance t
 Our mission is to transform raw incident data into actionable safety intelligence that helps communities stay informed and protected. By combining real-time reporting with geospatial visualization, we're creating a tool that serves both individuals and law enforcement in their efforts to improve public safety.
 
 ## Goals
+
 - [ ] Create a platform for people to report crime, anonymously
 - [ ] Visualize data on a map
 - [ ] Provide some way for users to chat with the app - focus on SA langauges
@@ -20,22 +23,31 @@ Our mission is to transform raw incident data into actionable safety intelligenc
 - [ ] _Stretch Goal_ Provide navigation, taking crime data into account
 
 ## Pillars
+
 ### Community
+
 - Built by and for South African communities
 - Encourages active citizen participation and reporting
 - Supports multiple languages to reach all community members
 - Promotes collective responsibility for safety
+
 ### Safety
+
 - Real-time incident reporting and alerts
 - Crime pattern visualization and hotspot identification
 - Privacy-focused design protecting user identities
+
 ### Intelligence
+
 - AI-powered language processing for local language support
 - Data-driven insights for informed decision-making
 
 # How we're building it
+
 ## Tech Stack
+
 ![Architecture](architecture.drawio.png)
+
 1. Front-end: Streamlit (Python)
 2. Back-end: FastAPI (Python)
 3. Database: PostGIS (PostgreSQL on Docker)
@@ -63,8 +75,11 @@ Together.ai provides a complete free tier for Llama 3.2 11B.
 The alternative would be Google Gemini, which has a generous free tier.
 
 ## Open Source
+
 ## Quality and Security
+
 ## AI Tools
+
 Due to the time constraints, and being busy with "real life", we relied heavily on GitHub copilot during the development.
 We used it for the following purposes:
 
@@ -74,35 +89,45 @@ We used it for the following purposes:
 - Testing - writing tests
 
 # Local Dev
+
 ## Prerequisites
+
 - Docker
 - Python 3.12+
 
 ## Setup
+
 1. Clone the repo
+
 2. Set up the Python environment
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 ```
-3. Install the dependencies
+
+1. Install the python dependencies
 ```bash
 pip install -r backend/requirements.txt
-pip install -r frontend/requirements.txt
-pip install -r shared/requirements.txt
 ```
-4. Install shared lib as an editable package
-```bash
-pip install -e shared
-```
-5. Run `docker-compose up -d` to start the database
-6. Run the backend
+
+1. Run `docker-compose up -d` to start the database
+
+3. Run the backend
 ```bash
 fastapi run backend/src/main.py
 ```
-7. Run the frontend
+
+4. Install the frontend dependencies
+```
+cd frontend
+pnpm install
+```
+
+6. Run the frontend
 ```bash
-streamlit run frontend/src/main.py
+cd frontend
+pnpm dev
 ```
 
 ### Executing Tests
