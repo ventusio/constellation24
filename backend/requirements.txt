@@ -4,6 +4,7 @@ httpx
 sqlmodel
 sqlalchemy
 geoalchemy2
+shapely
 psycopg
 psycopg2-binary
 pytest
