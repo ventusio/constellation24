@@ -73,6 +73,7 @@ const ChatBot = () => {
           <input
             type="text"
             value={input}
+            autoFocus
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about your area..."
             className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
