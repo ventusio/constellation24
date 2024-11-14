@@ -1,33 +1,43 @@
 import React, { useState } from 'react';
 import { Send, Bot } from 'lucide-react';
-
+import { useMutation } from 'react-query';
+import { env } from '../env';
 interface Message {
-  text: string;
-  isBot: boolean;
+  role: 'user' | 'assistant'
+  content: string
 }
 
 const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hello! I can help you explore the heatmap. Try asking about specific areas or data patterns.", isBot: true }
+    { content: "Hello! I can help you explore the heatmap. Try asking about specific areas or data patterns.", role: 'assistant' }
   ]);
+
+  const { mutate } = useMutation('chat', async () =>
+    fetch(`${env.API_BASE_URL}/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(messages)
+    }).then(r => r.json()) as Promise<Message>
+    , {
+      onSettled: (data) => {
+        if (!data) return
+        console.log(data)
+        setMessages(prev => [...prev, data]);
+      }
+    })
+
   const [input, setInput] = useState('');
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    const userMessage = { text: input, isBot: false };
+    const userMessage: Message = { content: input, role: 'user' };
     setMessages(prev => [...prev, userMessage]);
 
-    // Simulate bot response
-    setTimeout(() => {
-      const botResponse = { 
-        text: "I see you're interested in the map. I can help you analyze patterns and explore different areas.", 
-        isBot: true 
-      };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1000);
-
+    setTimeout(mutate, 200)
     setInput('');
   };
 
@@ -44,16 +54,15 @@ const ChatBot = () => {
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
+            className={`flex ${message.role === 'assistant' ? 'justify-start' : 'justify-end'}`}
           >
             <div
-              className={`max-w-[80%] p-3 rounded-lg ${
-                message.isBot
+              className={`max-w-[80%] p-3 rounded-lg ${message.role === 'assistant'
                   ? 'bg-gray-100 text-gray-800'
                   : 'bg-indigo-600 text-white'
-              }`}
+                }`}
             >
-              {message.text}
+              {message.content}
             </div>
           </div>
         ))}
