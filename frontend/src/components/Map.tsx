@@ -53,7 +53,7 @@ const Map = () => {
   });
 
   const heatmapData = useMemo(() => {
-    return reports?.map(r => [r.location.lat, r.location.lng, Math.random()*2]) as [number,number,number][]
+    return reports?.map(r => [r.location.lat, r.location.lng, 0.8]) as [number,number,number][]
   },[reports])
   
   if (isLoading) return <div className="flex items-center justify-center h-screen">Loading...</div>;
@@ -65,7 +65,7 @@ const Map = () => {
       center={[-26.086233, 28.086953]}
       zoom={13}
       className="h-full w-full rounded-lg"
-      style={{ height: "calc(100vh - 2rem)" }}
+      style={{ height: "calc(100vh - 2rem)", zIndex: 1 }}
       >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
