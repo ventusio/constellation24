@@ -1,4 +1,4 @@
-name: npm audit
+name: pnpm audit
 
 on:
   pull_request:
@@ -32,10 +32,5 @@ jobs:
         run: pnpm lint
         working-directory: frontend
 
-      - uses: oke-py/npm-audit-action@v2
-        with:
-          audit_level: moderate
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          issue_assignees: oke-py
-          issue_labels: vulnerability,test
-          dedupe_issues: true
+      - name: run pnpm audit
+        run: pnpm audit
