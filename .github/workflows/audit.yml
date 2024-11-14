@@ -6,18 +6,32 @@ on:
     branches:
       - main
       - 'releases/*'
-# on:
-#   schedule:
-#     - cron: '0 10 * * *'
+  schedule:
+    - cron: '0 10 * * *'
 
 jobs:
   scan:
     name: npm audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: install dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm
+      
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: frontend
+      
+      - name: Run ESLint
+        run: pnpm lint
+        working-directory: frontend
+
       - uses: oke-py/npm-audit-action@v2
         with:
           audit_level: moderate
