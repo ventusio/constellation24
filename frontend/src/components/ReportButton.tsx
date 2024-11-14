@@ -68,6 +68,7 @@ const ReportButton: React.FC = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe the incident"
+                autoFocus
                 required
                 className="w-full p-2 border border-gray-300 rounded mb-4"
                 style={{ height: '150px' }}
