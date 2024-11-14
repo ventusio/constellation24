@@ -14,10 +14,9 @@ Feather is a community-driven platform that empowers South Africans to enhance t
 Our mission is to transform raw incident data into actionable safety intelligence that helps communities stay informed and protected. By combining real-time reporting with geospatial visualization, we're creating a tool that serves both individuals and law enforcement in their efforts to improve public safety.
 
 ## Goals
-
-- [ ] Create a platform for people to report crime, anonymously
-- [ ] Visualize data on a map
-- [ ] Provide some way for users to chat with the app - focus on SA langauges
+- [x] Create a platform for people to report crime, anonymously
+- [x] Visualize data on a map
+- [x] Provide some way for users to chat with the app - focus on SA langauges
 - [ ] _Stretch Goal_ Pull in data from other sources (e.g. police reports)
 - [ ] _Stretch Goal_ Provide navigation to the nearest police station
 - [ ] _Stretch Goal_ Provide navigation, taking crime data into account
@@ -55,13 +54,6 @@ Our mission is to transform raw incident data into actionable safety intelligenc
 5. Intelligence: (Meta Llama 3.2 on Together.ai)
 
 ### Architectural Decisions
-*Why seperate frontend and backend?*
-
-Decoupling the frontend and backend allows for more flexibility in the future.
-For example, we could build a mobile app that uses the same backend.
-Streamlit is great for prototyping and building dashboards, and it allowed us to move fast.
-However, for a "real" web app, we would probably use a more traditional frontend framework like React.
-
 *Why Postgres/PostGIS?*
 
 We are storing geospatial data, so we need a database that can handle that.
@@ -75,8 +67,37 @@ Together.ai provides a complete free tier for Llama 3.2 11B.
 The alternative would be Google Gemini, which has a generous free tier.
 
 ## Open Source
+Our project leverages several key open source technologies:
+
+- **FastAPI**: Modern Python web framework for building APIs
+- **Streamlit**: Open source framework for building data apps
+- **PostGIS/PostgreSQL**: Open source spatial database
+- **OpenStreetMaps/Leaflet.js**: Open source mapping capabilities
+- **SQLModel**: Open source ORM built on SQLAlchemy
+- **Llama**: Open source LLM family for natural language processing
+- **Docker**: Containerization platform for consistent deployments
 
 ## Quality and Security
+
+### Automated Testing
+- **Pytest Framework**: Comprehensive test suite in [backend/tests](backend/tests) covering:
+  - API endpoint testing
+  - Database operations
+  - Geospatial functionality
+  - Authentication and authorization
+
+### CI/CD Pipeline
+Our [GitHub Actions workflows](.github/workflows) ensure code quality:
+
+1. **Linting** ([lint.yml](.github/workflows/lint.yml)):
+   - Black for code formatting
+   - isort for import sorting
+   - Flake8 for code style
+   - Runs against Python 3.11, 3.12, and 3.13
+
+2. **Build Testing** ([build.yml](.github/workflows/build.yml)):
+   - Validates Docker builds
+   - Ensures containerization works across environments
 
 ## AI Tools
 
@@ -87,6 +108,8 @@ We used it for the following purposes:
 - Scaffolding - creating the initial structure of the project
 - Editing - making small changes to code
 - Testing - writing tests
+
+_Note:_ to be 100% honest, we would not have been 25% as productive without copilot. It made it possible to build this at all as a two person team who also has full-time jobs.
 
 # Local Dev
 
@@ -111,7 +134,7 @@ source .venv/bin/activate
 pip install -r backend/requirements.txt
 ```
 
-1. Run `docker-compose up -d` to start the database
+1. Run `docker-compose up db -d` to start the database
 
 3. Run the backend
 ```bash
