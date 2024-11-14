@@ -53,7 +53,7 @@ const Map = () => {
   });
 
   const heatmapData = useMemo(() => {
-    return reports?.map((r,i) => [r.location.lat, r.location.lng, 0.8]) as [number,number,number][]
+    return reports?.map(r => [r.location.lat, r.location.lng, 0.8]) as [number,number,number][]
   },[reports])
   
   if (isLoading) return <div className="flex items-center justify-center h-screen">Loading...</div>;
