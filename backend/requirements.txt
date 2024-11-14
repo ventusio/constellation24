@@ -9,3 +9,4 @@ psycopg
 psycopg2-binary
 pytest
 testcontainers[all]
+numpy
