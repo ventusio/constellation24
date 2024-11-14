@@ -3,3 +3,6 @@ setuptools
 geoalchemy2
 shapely
 black
+black
+flake8
+isort
