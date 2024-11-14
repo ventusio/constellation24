@@ -12,7 +12,7 @@ from .config import get_settings
 # these need to be imported in a certain order
 from .utils import add_root_to_path  # noqa
 
-from shared.models import Point, Report
+from models import Point, Report
 
 settings = get_settings()
 

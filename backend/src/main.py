@@ -12,7 +12,7 @@ from src.postgis import DbReports, create_db_and_tables, get_session
 # isort: off
 # these need to be imported in a certain order
 from .utils import add_root_to_path  # noqa isort:skip
-from shared.models import Point, Report
+from models import Point, Report
 
 
 settings = get_settings()
