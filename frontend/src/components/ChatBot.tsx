@@ -46,7 +46,7 @@ const ChatBot = () => {
       <div className="p-4 border-b bg-indigo-600 rounded-t-lg">
         <h2 className="text-xl font-semibold text-white flex items-center gap-2">
           <Bot className="w-6 h-6" />
-          Map Assistant
+          Safety Advisor
         </h2>
       </div>
 

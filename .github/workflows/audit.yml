@@ -34,3 +34,4 @@ jobs:
 
       - name: run pnpm audit
         run: pnpm audit
+        working-directory: frontend
