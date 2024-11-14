@@ -8,13 +8,8 @@ from fastapi.security import APIKeyHeader
 from sqlmodel import Session, delete, select
 from src.chat import init_llm, system_prompt
 from src.config import Settings, get_settings
+from src.models import ChatMessage, Point, Report
 from src.postgis import DbReports, create_db_and_tables, get_session
-
-# isort: off
-# these need to be imported in a certain order
-from .utils import add_root_to_path  # noqa isort:skip
-from shared.models import Point, Report, ChatMessage
-
 
 settings = get_settings()
 
