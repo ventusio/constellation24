@@ -26,3 +26,8 @@ class Report(BaseModel):
     id: Optional[int] = None
     location: Point
     timestamp: Optional[str] = None
+
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str

@@ -18,5 +18,6 @@ class Settings(BaseSettings):
     db_port: int = 5432
     db_name: str = "postgres"
     admin_key: str = str(uuid4())
+    together_api_key: str = ""
 
     model_config = SettingsConfigDict(env_file=".env")
