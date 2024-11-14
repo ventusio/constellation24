@@ -74,7 +74,7 @@ const ChatBot = () => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about the heatmap..."
+            placeholder="Ask about your area..."
             className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <button
